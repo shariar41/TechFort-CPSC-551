@@ -1,0 +1,210 @@
+{% extends 'main.html' %}
+{% load static %}
+{% comment %}{% load crispy_forms_tags %}{% endcomment %}
+
+{% block title_block %} Registration {% endblock %}
+{% block content %}
+    {% include 'includes/navbar.html' %}
+
+     <!-- blog wrapper start -->
+   <div class="blog-area-wrapper pt-30 pb-65">
+       <div class="container-fluid">
+           <div class="row">
+               <div class="col-lg-12">
+                   <div class="blog-wrapper-inner">
+                       <div class="row">
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="single-blogg-item mb-30">
+                                    <div class="blogg-thumb">
+                                        <a href="{% url 'blog:blogs_details' %}">
+                                            <img src="{%static '/img/blog/blog1.jpg' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blogg-content">
+                                        <span class="post-date">20 oct 2019</span>
+                                        <h5><a href="{% url 'blog:blogs_details' %}">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
+                                        <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="single-blogg-item mb-30">
+                                    <div class="blogg-thumb">
+                                        <a href="../rough-templates/blog-details.html">
+                                            <img src="{%static '/img/blog/blog2.jpg' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blogg-content">
+                                        <span class="post-date">20 oct 2019</span>
+                                        <h5><a href="../rough-templates/blog-details.html">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
+                                        <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="single-blogg-item mb-30">
+                                    <div class="blogg-thumb">
+                                        <a href="../rough-templates/blog-details.html">
+                                            <img src="{%static '/img/blog/blog3.jpg' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blogg-content">
+                                        <span class="post-date">20 oct 2019</span>
+                                        <h5><a href="../rough-templates/blog-details.html">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
+                                        <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="single-blogg-item mb-30">
+                                    <div class="blogg-thumb">
+                                        <a href="../rough-templates/blog-details.html">
+                                            <img src="{%static '/img/blog/blog4.jpg' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blogg-content">
+                                        <span class="post-date">20 oct 2019</span>
+                                        <h5><a href="../rough-templates/blog-details.html">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
+                                        <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="single-blogg-item mb-30">
+                                    <div class="blogg-thumb">
+                                        <a href="../rough-templates/blog-details.html">
+                                            <img src="{%static '/img/blog/blog5.jpg' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blogg-content">
+                                        <span class="post-date">20 oct 2019</span>
+                                        <h5><a href="../rough-templates/blog-details.html">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
+                                        <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="single-blogg-item mb-30">
+                                    <div class="blogg-thumb">
+                                        <a href="../rough-templates/blog-details.html">
+                                            <img src="{%static '/img/blog/blog6.jpg' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blogg-content">
+                                        <span class="post-date">20 oct 2019</span>
+                                        <h5><a href="../rough-templates/blog-details.html">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
+                                        <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="single-blogg-item mb-30">
+                                    <div class="blogg-thumb">
+                                        <a href="../rough-templates/blog-details.html">
+                                            <img src="{%static '/img/blog/blog2.jpg' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blogg-content">
+                                        <span class="post-date">20 oct 2019</span>
+                                        <h5><a href="../rough-templates/blog-details.html">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
+                                        <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="single-blogg-item mb-30">
+                                    <div class="blogg-thumb">
+                                        <a href="../rough-templates/blog-details.html">
+                                            <img src="{%static '/img/blog/blog3.jpg' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blogg-content">
+                                        <span class="post-date">20 oct 2019</span>
+                                        <h5><a href="../rough-templates/blog-details.html">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
+                                        <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="single-blogg-item mb-30">
+                                    <div class="blogg-thumb">
+                                        <a href="../rough-templates/blog-details.html">
+                                            <img src="{%static '/img/blog/blog1.jpg' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blogg-content">
+                                        <span class="post-date">20 oct 2019</span>
+                                        <h5><a href="../rough-templates/blog-details.html">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
+                                        <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="single-blogg-item mb-30">
+                                    <div class="blogg-thumb">
+                                        <a href="../rough-templates/blog-details.html">
+                                            <img src="{%static '/img/blog/blog5.jpg' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blogg-content">
+                                        <span class="post-date">20 oct 2019</span>
+                                        <h5><a href="../rough-templates/blog-details.html">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
+                                        <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="single-blogg-item mb-30">
+                                    <div class="blogg-thumb">
+                                        <a href="../rough-templates/blog-details.html">
+                                            <img src="{%static '/img/blog/blog6.jpg' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blogg-content">
+                                        <span class="post-date">20 oct 2019</span>
+                                        <h5><a href="../rough-templates/blog-details.html">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
+                                        <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="single-blogg-item mb-30">
+                                    <div class="blogg-thumb">
+                                        <a href="../rough-templates/blog-details.html">
+                                            <img src="{%static '/img/blog/blog3.jpg' %}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blogg-content">
+                                        <span class="post-date">20 oct 2019</span>
+                                        <h5><a href="../rough-templates/blog-details.html">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
+                                        <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+                   </div>
+                   <div class="paginatoin-area text-center pt-40">
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="pagination-box">
+                                    <li><a class="Previous" href="#">Previous</a>
+                                    </li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li>
+                                      <a class="Next" href="#"> Next </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- blog wrapper end -->
+
+    {% include 'includes/footer.html' %}
+{% endblock %}
+

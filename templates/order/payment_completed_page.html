@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block meta %}
+    <meta http-equiv="refresh" content="5; url={% url 'products:home' %}">
+{% endblock meta %}
+
+{% block content %}
+
+    {% include 'includes/navbar.html' %}
+
+    {% include 'includes/footer.html' %}
+
+{% endblock %}
