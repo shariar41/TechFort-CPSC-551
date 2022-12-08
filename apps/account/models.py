@@ -40,15 +40,39 @@ class MyUserManager(BaseUserManager):
         return self._create_user(first_name, phone, email, password, **extra_fields)
 
 
+# class URole(models.Model):
+#     ROLE_CHOICES = (
+#         (1, "admin"),
+#         (2, "customer"),
+#         (3, "seller"))
+#     role_id = models.AutoField(db_column='role_id', primary_key=True)
+#     role_type = models.CharField(db_column='role_type', choices=ROLE_CHOICES, default=2)
+#     role_desc = models.CharField(max_length=50, blank=True, null=True)
+#
+#     class Meta:
+#         managed = False
+#         db_table = 'U_Role'
+
+
 class User(AbstractBaseUser, PermissionsMixin):
-    # username = models.CharField(max_length=264, blank=True)
+    ROLE_CHOICES = (
+        ('1', "admin"),
+        ('2', "customer"),
+        ('3', "seller"),)
+    # user_id = models.AutoField(primary_key=True, default=1000)
     email = models.EmailField(unique=True, null=False)
     first_name = models.CharField(max_length=264, blank=True)
     phone = models.CharField(max_length=20, blank=True)
+    # role_type = models.CharField(max_length=1, db_column='role_type', choices=ROLE_CHOICES, default='2')
     is_staff = models.BooleanField(
         gettext_lazy('staff status'),
         default=False,
         help_text=gettext_lazy('Designates whether the user can log in this site')
+    )
+    is_seller = models.BooleanField(
+        gettext_lazy('seller status'),
+        default=False,
+        help_text=gettext_lazy('Designates whether the user is a seller or not')
     )
 
     is_active = models.BooleanField(
@@ -63,26 +87,34 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = MyUserManager()
 
     def __str__(self):
-        return self.first_name
+        return self.email
 
     def get_full_name(self):
-        return self.first_name
+        return self.email
 
     # def get_short_name(self):
     #     return self.last_name
+    class Meta:
+        db_table = 'User'
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     lastname = models.CharField(max_length=264, blank=True)
     address_1 = models.TextField(max_length=300, blank=True)
-    city = models.CharField(max_length=40, blank=True)
-    zipcode = models.CharField(max_length=10, blank=True)
-    country = models.CharField(max_length=50, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
 
+    apartment = models.CharField(max_length=20, blank=True, null=True)
+    street = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=40, blank=True, null=True)
+    profile_pic = models.CharField(max_length=100, blank=True, null=True)
+    gender = models.CharField(max_length=100, blank=True, null=True)
+    age = models.IntegerField(blank=True, null=True)
+    store_desc = models.CharField(max_length=200, blank=True, null=True)
+    hotline = models.CharField(max_length=11, blank=True, null=True)
+
     def __str__(self):
-        return self.user.first_name + "'s Profile"
+        return self.user.email + "'s Profile"
 
     def is_fully_filled(self):
         fields_names = [f.name for f in self._meta.get_fields()]
@@ -92,6 +124,9 @@ class Profile(models.Model):
             if value is None or value == '':
                 return False
         return True
+
+    class Meta:
+        db_table = 'Profile'
 
 
 @receiver(post_save, sender=User)

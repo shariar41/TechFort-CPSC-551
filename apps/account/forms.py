@@ -55,7 +55,7 @@ class UserUpdateForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
-    class Meta:  # this class tells about the affected model,fields,etc that you want to edit
+    class Meta:  # this class tells about the affected model,fields.. that you want to edit
         model = Profile  # it says model named User is affected
         fields = ['lastname', 'address_1']
 

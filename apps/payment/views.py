@@ -34,7 +34,7 @@ def checkout(request):
             messages.success(request, f"Shipping Address Saved!")
     # order_qs = Order.objects.filter(user=request.user, is_order=False)
     # print(order_qs)
-    order_qs = Order.objects.filter(user=request.user, order_id=None, payment_id=None)
+    order_qs = Order.objects.filter(created_by=request.user, payment_id=None)
     order_items = order_qs[0].order_items.all()
     # print(order_items)
     order_total = order_qs[0].get_total_price()
@@ -62,7 +62,7 @@ class CheckoutView(LoginRequiredMixin, View):
 
         form = self.form_class(instance=saved_address)
         # order_qs = Order.objects.filter(user=request.user, is_order=False)
-        order_qs = Order.objects.filter(user=request.user, order_id=None, payment_id=None)
+        order_qs = Order.objects.filter(created_by=request.user, is_order=False, payment_id=None)
         # print(order_qs)
         order_items = order_qs[0].order_items.all()
         # print(order_items)
@@ -87,82 +87,66 @@ class CheckoutView(LoginRequiredMixin, View):
         if form.is_valid():
             form.save()
             messages.success(request, f"Shipping Address Saved!")
-            return redirect('payment:checkout')
+            return redirect('payment:payment')
 
 
-# @login_required
-# def payment(request):
-#     saved_address = BillingAddress.objects.get_or_create(user=request.user)
-#     saved_address = saved_address[0]
-#
-#     if not saved_address.email:
-#         saved_address.email = request.user.email
-#     if not saved_address.address:
-#         saved_address.address = request.user.profile.address_1
-#     if not saved_address.city:
-#         saved_address.city = request.user.profile.city
-#     if not saved_address.is_fully_filled():
-#         messages.info(request, f"Please save your shipping address!")
-#         return redirect("payment:checkout")
-#     if not request.user.profile.address_1 or not request.user.profile.city or not request.user.profile.country:
-#         messages.info(request, f"Please complete Profile address!")
-#         return redirect("account:profile", request.user.id)
-#     saved_address.save()
-#     store_id = 'techf5fe8c66344e79'
-#     api_key = 'techf5fe8c66344e79@ssl'
-#     mypayment = SSLCSession(sslc_is_sandbox=True, sslc_store_id=store_id,
-#                             sslc_store_pass=api_key)
-#     success_url = request.build_absolute_uri(reverse("payment:payment-completed"))
-#     mypayment.set_urls(success_url=success_url, fail_url=success_url,
-#                        cancel_url=success_url, ipn_url=success_url)
-#
-#     order_qs = Order.objects.filter(user=request.user, order_id=None, payment_id=None)
-#     # order = Order.objects.filter(user=user, order_id=None, payment_id=None)
-#     order_items = order_qs[0].order_items.all()
-#     order_items_count = order_qs[0].order_items.count()
-#     order_total = order_qs[0].get_total_price()
-#     mypayment.set_product_integration(total_amount=Decimal(order_total), currency='BDT', product_category='Mixed',
-#                                       product_name=order_items, num_of_item=order_items_count,
-#                                       shipping_method='Courier',
-#                                       product_profile='None')
-#     current_user = request.user
-#     mypayment.set_customer_info(name=current_user.first_name, email=current_user.email,
-#                                 address1=current_user.profile.address_1,
-#                                 address2=current_user.profile.address_1, city=current_user.profile.city,
-#                                 postcode='None', country=current_user.profile.country,
-#                                 phone=current_user.phone)
-#
-#     mypayment.set_shipping_info(shipping_to=current_user.first_name, address=saved_address.address,
-#                                 city=saved_address.city, postcode='None',
-#                                 country=saved_address.country)
-#
-#     response_data = mypayment.init_payment()
-#
-#     order = order_qs[0]
-#     order.is_order = True
-#     # order.order_id = order.id
-#     order.save()
-#     # print(response_data)
-#     return redirect(response_data['GatewayPageURL'])
-#     # return render(request, "order/payment.html", context={})
+@login_required
+def payment(request):
+    saved_address = BillingAddress.objects.get_or_create(user=request.user)
+    saved_address = saved_address[0]
+    if not saved_address.is_fully_filled():
+        messages.info(request, f"Please complete shipping address!")
+        return redirect("payment:checkout")
+
+    # if not request.user.profile.is_fully_filled():
+    #     messages.info(request, f"Please complete profile details!")
+    #     return redirect("account:profile", request.user.id)
+    # if not saved_address.email:
+    #     saved_address.email = request.user.email
+    # if not saved_address.address:
+    #     saved_address.address = request.user.profile.address_1
+    # if not saved_address.city:
+    #     saved_address.city = request.user.profile.city
+    # if not saved_address.is_fully_filled():
+    #     messages.info(request, f"Please save your shipping address!")
+    #     return redirect("payment:checkout")
+    # if not request.user.profile.address_1 or not request.user.profile.city or not request.user.profile.country:
+    #     messages.info(request, f"Please complete Profile address!")
+    #     return redirect("account:profile", request.user.id)
+    # saved_address.save()
+
+    order_qs = Order.objects.filter(created_by=request.user, payment_id=None)
+    cart_items = Cart.objects.filter(cart_user=request.user, is_purchased=False)
+    order = order_qs[0]
+    order.is_order = True
+    for cart_item in cart_items:
+        cart_item.is_purchased = True
+        cart_item.save()
+    # order.payment
+    # order.order_id = order.id
+
+    order.save()
+    # print(response_data)
+    # return redirect(response_data['GatewayPageURL'])
+    return HttpResponseRedirect(
+        reverse("payment:purchase", kwargs={'val_id': 1, 'tran_id': 1}))
+    # return render(request, "order/payment_completed_page.html")
 
 
-# @login_required
+@login_required
 @csrf_exempt
 def complete_payment_page(request):
     # print(request.POST)
     if request.method == 'POST' or request.method == 'post':
-        payment_data = request.POST
-        payment_status = payment_data['status']
-        bank_tran_id = payment_data['bank_tran_id']
+        payment_status = 'VALID'
         if payment_status == 'VALID':
-            transaction_id = payment_data['tran_id']
-            val_id = payment_data['val_id']
+            # transaction_id = 1
+            # val_id = 1
             messages.success(request,
-                             f"your payment of transaction id: {transaction_id} and bank transaction id: "
-                             f"{bank_tran_id} is successful! Pages will be redirected after 5 seconds")
+                             f"your payment of transaction id: {1} and bank transaction id: "
+                             f"{1} is successful! Pages will be redirected after 5 seconds")
             return HttpResponseRedirect(
-                reverse("payment:purchase", kwargs={'val_id': val_id, 'tran_id': transaction_id}))
+                reverse("payment:purchase", kwargs={'val_id': 1, 'tran_id': 1}))
         elif payment_status == 'FAILED':
             messages.warning(request,
                              f"Your payment is not successful")
@@ -180,16 +164,17 @@ def complete_payment_page(request):
 
 @login_required
 def purchase(request, val_id, tran_id):
-    order_qs = Order.objects.filter(user=request.user, order_id=None, payment_id=None)
+    order_qs = Order.objects.filter(created_by=request.user, payment_id=None)
     order = order_qs[0]
     order.is_order = True
-    order.order_id = tran_id  # order.id
-    order.payment_id = val_id
+    # order.order_id = tran_id  # order.id
+    # order.payment_id = val_id
     order.save()
 
-    cart_items = Cart.objects.filter(user=request.user, is_purchased=False)
+    cart_items = Cart.objects.filter(cart_user=request.user, is_purchased=False)
     for cart_item in cart_items:
         cart_item.is_purchased = True
         cart_item.save()
-
-    return HttpResponseRedirect(reverse("products:home"))
+    messages.success(request,
+                     f"your payment is successful!")
+    return HttpResponseRedirect(reverse("products:shop"))

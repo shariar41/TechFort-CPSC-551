@@ -19,6 +19,7 @@ class CountryList(models.Model):
 
     class Meta:
         verbose_name_plural = "Countries List"
+        db_table = 'CountryList'
 
 
 class BillingAddress(models.Model):
@@ -42,3 +43,4 @@ class BillingAddress(models.Model):
 
     class Meta:
         verbose_name_plural = "Billing Addresses"
+        db_table = 'BillingAddress'

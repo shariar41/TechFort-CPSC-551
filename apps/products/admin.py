@@ -1,11 +1,15 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Product, Category, Tag, ProductImage, SubCategory
+from .models import Product, Category, Tag, PCoverImage  # , ProductImage, SubCategory
+
+admin.site.register(Category)
+# admin.site.register(SubCategory)
+admin.site.register(Tag)
 
 
 class ProductImageAdmin(admin.StackedInline):
-    model = ProductImage
+    model = PCoverImage
 
 
 @admin.register(Product)
@@ -16,14 +20,10 @@ class ProductAdmin(admin.ModelAdmin):
         model = Product
 
 
-@admin.register(ProductImage)
+@admin.register(PCoverImage)
 class ProductImageAdmin(admin.ModelAdmin):
     pass
 
-
-# admin.site.register(Product)
+# admin.site.register(Product, ProductAdmin)
 
 # admin.site.register(ProductImage)
-admin.site.register(Category)
-admin.site.register(SubCategory)
-admin.site.register(Tag)

@@ -19,22 +19,22 @@
                         <ul>
                             <li class="settings">
                                 {% if user.is_authenticated %}
-                                    <a class="ha-toggle" href="#">{{ request.user.first_name }}<span
-                                            class="lnr lnr-chevron-down"></span></a>
-                                    <ul class="box-dropdown ha-dropdown">
-                                        <li><a href="{% url 'account:profile' user.id %}">Your Profile</a></li>
-                                        <li><a href="{% url 'account:logout' %}">Logout</a></li>
-                                    </ul>
+                                <a class="ha-toggle" href="#">{{ request.user.first_name }}<span
+                                        class="lnr lnr-chevron-down"></span></a>
+                                <ul class="box-dropdown ha-dropdown">
+                                    <li><a href="{% url 'account:profile' user.id %}">Your Profile</a></li>
+                                    <li><a href="{% url 'account:logout' %}">Logout</a></li>
+                                </ul>
                                 {% else %}
-                                    <a class="ha-toggle" href="#">My Account<span
-                                            class="lnr lnr-chevron-down"></span></a>
-                                    <ul class="box-dropdown ha-dropdown">
-                                        <li><a href="{% url 'account:signup' %}">Register</a></li>
-                                        <li><a href="{% url 'account:login' %}">Login</a></li>
-                                    </ul>
+                                <a class="ha-toggle" href="#">My Account<span
+                                        class="lnr lnr-chevron-down"></span></a>
+                                <ul class="box-dropdown ha-dropdown">
+                                    <li><a href="{% url 'account:signup' %}">Register</a></li>
+                                    <li><a href="{% url 'account:login' %}">Login</a></li>
+                                </ul>
                                 {% endif %}
                             </li>
-                            <li class="settings">
+                            <!--<li class="settings">
                                 <a class="ha-toggle" href="#">Language<span class="lnr lnr-chevron-down"></span></a>
                                 <ul class="box-dropdown ha-dropdown">
                                     <li><a href="login.html"><img src="{% static 'img/icon/en.png' %}" alt="">
@@ -42,14 +42,14 @@
                                     <li><a href="login.html"><img src="{% static  'img/icon/ge.png' %}" alt=""> Germany</a>
                                     </li>
                                 </ul>
-                            </li>
-                            <li class="currency">
+                            </li>-->
+                            <!--<li class="currency">
                                 <a class="ha-toggle" href="#">Currency<span class="lnr lnr-chevron-down"></span></a>
                                 <ul class="box-dropdown ha-dropdown">
                                     <li><a href="login.html">€ Euro</a></li>
                                     <li><a href="login.html">$ US Doller</a></li>
                                 </ul>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                 </div>
@@ -61,112 +61,91 @@
             <div class="row align-items-center">
                 <div class="col-lg-2 col-md-4 col-sm-4 col-12">
                     <div class="logo">
-                        <a href="index.html"><img src="{% static 'img/logo/logo-sinrato.png' %}"></a>
+                        <a href="index.html"><img src="{% static 'img/logo/img_2.png' %}"></a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12 col-12 order-sm-last">
                     <div class="header-middle-inner">
-                        <form action="https://demo.hasthemes.com/sinrato-preview/sinrato/method">
+                        <form method="POST" >{% csrf_token %}
                             <div class="top-cat hm1">
                                 <div class="search-form">
-                                    <select>
-                                        <optgroup label="Electronics">
-                                            <option value="volvo">Laptop</option>
-                                            <option value="saab">watch</option>
-                                            <option value="saab">air cooler</option>
-                                            <option value="saab">audio</option>
-                                            <option value="saab">speakers</option>
-                                            <option value="saab">amplifires</option>
-                                        </optgroup>
-                                        <optgroup label="Fashion">
-                                            <option value="mercedes">Womens tops</option>
-                                            <option value="audi">Jeans</option>
-                                            <option value="audi">Shirt</option>
-                                            <option value="audi">Pant</option>
-                                            <option value="audi">Watch</option>
-                                            <option value="audi">Handbag</option>
-                                        </optgroup>
+                                    <select name="catSelected">
+                                        {% if categories %}
+                                        {% for category in categories %}
+                                            <option value="{{ category.category_id }}">{{ category.category_name }}</option>
+                                        {% endfor %}
+                                        {% endif %}
                                     </select>
                                 </div>
                             </div>
-                            <input type="text" class="top-cat-field" placeholder="Search entire store here">
-                            <input type="button" class="top-search-btn" value="Search">
+                            <input type="text" class="top-cat-field" placeholder="Search Products here">
+                            <input type="submit" class="top-search-btn" value="Search">
                         </form>
                     </div>
                 </div>
                 {% if user.is_authenticated %}
-                    <div class="col-lg-4 col-md-8 col-12 col-sm-8 order-lg-last">
-                        <div class="mini-cart-option">
-                            <ul>
-                                <li class="compare">
-                                    <a class="ha-toggle" href="{% url 'products:compare' %}"><span
-                                            class="lnr lnr-sync"></span>Product
-                                        compare</a>
-                                </li>
-                                <li class="wishlist">
-                                    <a class="ha-toggle" href="{% url 'products:wishlist' %}"><span
-                                            class="lnr lnr-heart"></span><span
-                                            class="count">1</span>wishlist</a>
-                                </li>
-
-                                <li class="my-cart">
-                                    <a class="ha-toggle" href="#"><span class="lnr lnr-cart"></span><span
-                                            class="count">
+                <div class="col-lg-4 col-md-8 col-12 col-sm-8 order-lg-last">
+                    <div class="mini-cart-option">
+                        <ul>
+                            <li class="my-cart">
+                                <a class="ha-toggle" href="#"><span class="lnr lnr-cart"></span><span
+                                        class="count">
                                     {% if request.user|cart_items %}
-                                        {{ request.user | cart_total }}
+                                        {{ request.user|cart_total }}
                                     {% else %}
                                         0
                                     {% endif %}
                                 </span>my cart</a>
-                                    <ul class="mini-cart-drop-down ha-dropdown">
+                                <ul class="mini-cart-drop-down ha-dropdown">
 
-                                        {% if request.user|cart_items %}
-                                            {% for item in request.user|cart_items %}
-                                                <li class="mb-30">
-                                                    <div class="cart-img">
-                                                        <a href="product-details.html"><img alt=""
-                                                                                            src="{{ item.item.image.url }}"></a>
-                                                    </div>
-                                                    <div class="cart-info">
-                                                        <h4>
-                                                            <a href="{% url 'products:productDetails' pk=item.item.pk %}">{{ item.item.name }}</a>
-                                                        </h4>
-                                                        <span> <span>{{ item.quantity }} x </span>&#2547; {{ item.item.new_price }}</span>
-                                                    </div>
-                                                    <div class="del-icon">
-                                                        <i class="fa fa-times-circle"></i>
-                                                    </div>
-                                                </li>
-                                            {% endfor %}
-                                            <li>
-                                                <div class="subtotal-text">Sub-total:</div>
-                                                <div class="subtotal-price">
-                                                    &#2547; {{ request.user | get_sub_total_price }}</div>
+                                    {% if request.user|cart_items %}
+                                        {% for item in request.user|cart_items %}
+                                            <li class="mb-30">
+                                                <div class="cart-img">
+                                                    <a href="{% url 'products:productDetails' pk=item.item.productId %}"><img alt="" src="{{ item.item.image }}"></a>
+                                                </div>
+                                                <div class="cart-info">
+                                                    <h4>
+                                                        <a href="{% url 'products:productDetails' pk=item.item.productId %}">{{ item.item.name }}</a>
+                                                    </h4>
+                                                    <span> <span>{{ item.quantity }} x </span><!--&#2547;-->$ {%if item.item.new_price %}{{ item.item.new_price }}{% else %}{{ item.item.old_price }}{%endif%}</span>
+                                                </div>
+                                                <div class="del-icon">
+                                                    <a href="{% url 'remove' pk=item.item.productId %}"><i class="fa fa-times-circle"></i></a>
+                                                </div>
                                             </li>
-                                            <li>
-                                                <div class="subtotal-text">Vat ({{ request.user|get_vat }}%):</div>
-                                                <div class="subtotal-price">
-                                                    &#2547; {{ request.user|get_total_price }}</div>
-                                            </li>
-                                            <li>
-                                                <div class="subtotal-text">Total:</div>
-                                                <div class="subtotal-price">
-                                                    <span>&#2547; {{ request.user|get_total_price }}</span></div>
-                                            </li>
-                                        {% endif %}
-                                        <li class="mt-30">
-                                            <a class="cart-button" href="{% url 'view_cart' %}">view cart</a>
+                                        {% endfor %}
+                                        <li>
+                                            <div class="subtotal-text">Sub-total:</div>
+                                            <div class="subtotal-price">
+                                                <!--&#2547;-->$ {{ request.user|get_sub_total_price }}
+                                            </div>
                                         </li>
                                         <li>
-                                            <a class="cart-button" href="{% url 'payment:checkout' %}">checkout</a>
+                                            <div class="subtotal-text">Vat :</div>
+                                            <div class="subtotal-price">
+                                                <!--&#2547;-->{{ request.user|get_vat }} %
+                                            </div>
                                         </li>
-                                    </ul>
-                                </li>
+                                        <li>
+                                            <div class="subtotal-text">Total:</div>
+                                            <div class="subtotal-price">
+                                                <span><!--&#2547;-->$ {{ request.user|get_total_price }}</span></div>
+                                        </li>
+                                    {% endif %}
+                                    <li class="mt-30">
+                                        <a class="cart-button" href="{% url 'view_cart' %}">view cart</a>
+                                    </li>
+                                    <li>
+                                        <a class="cart-button" href="{% url 'payment:checkout' %}">checkout</a>
+                                    </li>
+                                </ul>
+                            </li>
 
 
-                            </ul>
-                        </div>
+                        </ul>
                     </div>
+                </div>
                 {% endif %}
             </div>
         </div>
@@ -189,25 +168,13 @@
                             <nav class="categorie-menus ha-dropdown">
                                 <ul id="menu2">
                                     {% if categories %}
-                                        {% for category in categories %}
-                                            <li><a href="shop-grid-left-sidebar.html">{{ category.category_name }}<span
-                                                    class="lnr lnr-chevron-right"></span></a>
-                                                {% if category.sub_category %}
-                                                    {#                                                    <p>{{ sub_category. }}</p>#}
-                                                    <ul class="cat-submenu">
-                                                        {% for sub in category.sub_category.all %}
-                                                            <li>
-                                                                <a href="shop-grid-left-sidebar.html">
-                                                                    {{ sub.sub_category_name }}</a>
-                                                            </li>
-                                                        {% endfor %}
-                                                    </ul>
-
-                                                {% endif %}
-                                            </li>
-                                        {% endfor %}
+                                    {% for category in categories %}
+                                    <li><a href="{% url 'products:shopFilterProduct' cat_id=category.category_id %}">{{ category.category_name }}<span
+                                            class="lnr lnr-chevron-right"></span></a>
+                                    </li>
+                                    {% endfor %}
                                     {% elif categories == 0 %}
-                                        <p>No Categories</p>
+                                    <p>No Categories</p>
                                     {% endif %}
                                 </ul>
                             </nav>
@@ -215,9 +182,9 @@
                         <div class="main-menu">
                             <nav id="mobile-menu">
                                 <ul>
-                                    <li><a href="{% url 'products:home' %}">HOME</a>
+                                    <!--<li><a href="{% url 'products:shop' %}">HOME</a>&lt;!&ndash;{% url 'products:home' %}&ndash;&gt;
 
-                                    </li>
+                                    </li>-->
                                     <li><a href="{% url 'products:shop' %}">SHOP</a>
 
                                     </li>

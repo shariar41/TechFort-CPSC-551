@@ -21,6 +21,8 @@ from django.urls import path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
+    # path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    # path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
     re_path('admin/', admin.site.urls),
     # path('api/', include('rest_framework.urls')),
     path('', include('apps.products.urls')),  # '' url should be routed first and then with name i.e 'products/'

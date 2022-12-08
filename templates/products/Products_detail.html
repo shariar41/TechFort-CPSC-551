@@ -33,7 +33,7 @@
                     <div class="product-large-slider mb-20">
                         {% for product_image in product_images %}
                             <div class="pro-large-img">
-                                <img src="{{ product_image.cover_image.url }}" alt=""/>
+                                <img src="{{ product_image.image_link }}" alt=""/>
                                 <div class="img-view">
                                     <a class="img-popup" href="#"><i
                                             class="fa fa-search"></i></a>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="pro-nav justify-content-center">
                         {% for product_image in product_images %}
-                            <div class="pro-nav-thumb"><img src="{{ product_image.cover_image.url }}" alt=""/></div>
+                            <div class="pro-nav-thumb"><img src="{{ product_image.image_link }}" alt=""/></div>
                         {% endfor %}
                     </div>
                 </div>

@@ -4,178 +4,191 @@
 
 {% block title_block %} Registration {% endblock %}
 {% block content %}
-    {% include 'includes/navbar.html' %}
+{% include 'includes/navbar.html' %}
 
-    <!-- shop page main wrapper start -->
-    <div class="main-wrapper pt-35">
-        <div class="container-fluid">
-            <div class="row">
-                {% comment %}  Left section {% endcomment %}
-                <div class="col-lg-3">
+<!-- shop page main wrapper start -->
+<div class="main-wrapper pt-35">
+    <div class="container-fluid">
+        <div class="row">
+            {% comment %} Left section {% endcomment %}
+            <div class="col-lg-3">
 
-                    <div class="shop-sidebar-inner mb-30">
-                        <!-- filter-price-content start -->
-                        <div class="single-sidebar mb-45">
-                            <div class="sidebar-inner-title mb-25">
-                                <h3>Fillter by price</h3>
-                            </div>
-                            <div class="sidebar-content-box">
-                                <div class="filter-price-content">
-                                    <form action="#" method="post">
-                                        <div id="price-slider"
-                                             class="price-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                            <div class="ui-slider-range ui-widget-header ui-corner-all"
-                                                 style="left: 16.6667%; width: 79.1667%;"></div>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
-                                                  style="left: 16.6667%;"></span><span
-                                                class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
-                                                style="left: 95.8333%;"></span></div>
-                                        <div class="filter-price-wapper">
-                                            <div class="filter-price-cont">
-                                                <div class="input-type">
-                                                    <input id="min-price" readonly="" type="text">
-                                                </div>
-                                                <div class="input-type">
-                                                    <input id="max-price" readonly="" type="text">
-                                                </div>
+                <div class="shop-sidebar-inner mb-30">
+                    <!-- filter-price-content start -->
+                    <div class="single-sidebar mb-45">
+                        <div class="sidebar-inner-title mb-25">
+                            <h3>Filter by price</h3>
+                        </div>
+                        <div class="sidebar-content-box">
+                            <div class="filter-price-content">
+                                <form action="#" method="post">
+                                    <div id="price-slider"
+                                         class="price-slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                        <div class="ui-slider-range ui-widget-header ui-corner-all"
+                                             style="left: 16.6667%; width: 79.1667%;"></div>
+                                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
+                                              style="left: 16.6667%;"></span><span
+                                            class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
+                                            style="left: 95.8333%;"></span></div>
+                                    <div class="filter-price-wapper">
+                                        <div class="filter-price-cont">
+                                            <div class="input-type">
+                                                <input id="min-price" readonly="" type="text">
+                                            </div>
+                                            <div class="input-type">
+                                                <input id="max-price" readonly="" type="text">
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <!-- filte price end -->
-                        <!-- categories filter start -->
-                        <div class="single-sidebar mb-45">
-                            <div class="sidebar-inner-title mb-25">
-                                <h3>Categories</h3>
+                    </div>
+                    <!-- filte price end -->
+                    <!-- categories filter start -->
+                    <div class="single-sidebar mb-45">
+                        <div class="sidebar-inner-title mb-25">
+                            <h3>Categories</h3>
+                        </div>
+                        <div class="sidebar-content-box">
+                            <div class="filter-attribute-container">
+                                <ul>
+                                    {% for category in categories %}
+                                        <li>
+                                            <a href="shop-grid-left-sidebar.html">{{ category.category_name }}</a>
+                                        </li><!--{% if category == categories.first %}class="active" {% endif %}-->
+                                    {% endfor %}
+<!--                                    {% comment %}-->
+<!--                                    <li><a href="shop-grid-left-sidebar.html">Categories 2 (03)</a></li>-->
+<!--                                    <li><a href="shop-grid-left-sidebar.html">Categories 3 (10)</a></li>-->
+<!--                                    <li><a href="shop-grid-left-sidebar.html">Categories 4 (02)</a></li>-->
+<!--                                    {% endcomment %}-->
+                                </ul>
                             </div>
-                            <div class="sidebar-content-box">
-                                <div class="filter-attribute-container">
-                                    <ul>
-                                        {% for category in categories %}
-                                            <li><a {% if category == categories.first %}
-                                                class="active"
-                                            {% endif %}  href="shop-grid-left-sidebar.html">{{ category.category_name }}
-                                                (05)</a>
+                        </div>
+                    </div>
+                    <!-- categories filter end -->
+                    <!-- categories filter start -->
+                    <div class="single-sidebar mb-45">
+                        <div class="sidebar-inner-title mb-25">
+                            <h3>Brand</h3>
+                        </div>
+                        <div class="sidebar-content-box">
+                            <div class="filter-attribute-container">
+                                <ul>
+                                    {% if filteredproducts %}
+                                    {% for product in filteredproducts %}
+                                        <li>
+                                            <li><a href="shop-grid-left-sidebar.html">{{ product.brand }}</a></li>
+                                        </li>
+                                    {% endfor %}
+                                    {% else %}
+                                        {% for product in products %}
+                                            <li>
+                                                <li><a href="shop-grid-left-sidebar.html">{{ product.brand }}</a></li>
                                             </li>
                                         {% endfor %}
-{% comment %}
-                                        <li><a href="shop-grid-left-sidebar.html">Categories 2 (03)</a></li>
-                                        <li><a href="shop-grid-left-sidebar.html">Categories 3 (10)</a></li>
-                                        <li><a href="shop-grid-left-sidebar.html">Categories 4 (02)</a></li>{% endcomment %}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- categories filter end -->
-                        <!-- categories filter start -->
-                        <div class="single-sidebar mb-45">
-                            <div class="sidebar-inner-title mb-25">
-                                <h3>Manufacturer</h3>
-                            </div>
-                            <div class="sidebar-content-box">
-                                <div class="filter-attribute-container">
-                                    <ul>
-                                        <li><a class="active" href="shop-grid-left-sidebar.html">Christian Dior (2)</a>
-                                        </li>
-                                        <li><a href="shop-grid-left-sidebar.html">ferragamo (7)</a></li>
-                                        <li><a href="shop-grid-left-sidebar.html">hermes (7)</a></li>
-                                        <li><a href="shop-grid-left-sidebar.html">louis vuitton (6)</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- categories filter end -->
-                        <!-- categories filter start -->
-                        <div class="single-sidebar mb-45">
-                            <div class="sidebar-inner-title mb-25">
-                                <h3>Select by color</h3>
-                            </div>
-                            <div class="sidebar-content-box">
-                                <div class="filter-attribute-container">
-                                    <ul>
-                                        <li><a class="active" href="shop-grid-left-sidebar.html">Black (2)</a></li>
-                                        <li><a href="shop-grid-left-sidebar.html">blue (7)</a></li>
-                                        <li><a href="shop-grid-left-sidebar.html">brown (7)</a></li>
-                                        <li><a href="shop-grid-left-sidebar.html">white (6)</a></li>
-                                    </ul>
-                                </div>
+                                    {% endif %}
+<!--                                    <li><a class="active" href="shop-grid-left-sidebar.html">Christian Dior (2)</a>-->
+<!--                                    </li>-->
+<!--                                    <li><a href="shop-grid-left-sidebar.html">ferragamo (7)</a></li>-->
+<!--                                    <li><a href="shop-grid-left-sidebar.html">hermes (7)</a></li>-->
+<!--                                    <li><a href="shop-grid-left-sidebar.html">louis vuitton (6)</a></li>-->
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <!-- sidebar promote picture start -->
-                    <div class="single-sidebar mb-30">
-                        <div class="sidebar-thumb">
-                            <a href="#"><img src="{% static 'img/banner/img-static-sidebar.jpg' %}" alt=""></a>
+                    <!-- categories filter end -->
+                    <!-- categories filter start -->
+                    <div class="single-sidebar mb-45">
+                        <div class="sidebar-inner-title mb-25">
+                            <h3>Select by color</h3>
+                        </div>
+                        <div class="sidebar-content-box">
+                            <div class="filter-attribute-container">
+                                <ul>
+                                    <li><a class="active" href="shop-grid-left-sidebar.html">Black (2)</a></li>
+                                    <li><a href="shop-grid-left-sidebar.html">blue (7)</a></li>
+                                    <li><a href="shop-grid-left-sidebar.html">brown (7)</a></li>
+                                    <li><a href="shop-grid-left-sidebar.html">white (6)</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <!-- sidebar promote picture end -->
                 </div>
+                <!-- sidebar promote picture start -->
+                <div class="single-sidebar mb-30">
+                    <div class="sidebar-thumb">
+                        <a href="#"><img src="{% static 'img/banner/img-static-sidebar.jpg' %}" alt=""></a>
+                    </div>
+                </div>
+                <!-- sidebar promote picture end -->
+            </div>
 
-                {% comment %}  Right section {% endcomment %}
-                <div class="col-lg-9 order-first order-lg-last">
-                    <div class="product-shop-main-wrapper mb-50">
-                        {% comment %} pagination bar {% endcomment %}
-                        <div class="shop-baner-img mb-70">
-                            <a href="#"><img src="{% static 'img/banner/category-image.jpg' %}" alt=""></a>
-                        </div>
-                        <div class="shop-top-bar mb-30">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="top-bar-left">
-                                        <div class="product-view-mode">
-                                            <a class="active" href="#" data-target="column_3"><span>3-col</span></a>
-                                            <a href="#" data-target="grid"><span>4-col</span></a>
-                                            <a href="#" data-target="list"><span>list</span></a>
-                                        </div>
-                                        <div class="product-page">
-                                            <p>Showing 1 to 9 of 9 (1 Pages)</p>
-                                        </div>
+            {% comment %} Right section {% endcomment %}
+            <div class="col-lg-9 order-first order-lg-last">
+                <div class="product-shop-main-wrapper mb-50">
+                    {% comment %} pagination bar {% endcomment %}
+                    <div class="shop-baner-img mb-70">
+                        <a href="#"><img src="{% static 'img/banner/category-image.jpg' %}" alt=""></a>
+                    </div>
+                    <div class="shop-top-bar mb-30">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="top-bar-left">
+                                    <div class="product-view-mode">
+                                        <a class="active" href="#" data-target="column_3"><span>3-col</span></a>
+                                        <a href="#" data-target="grid"><span>4-col</span></a>
+                                        <a href="#" data-target="list"><span>list</span></a>
                                     </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="top-bar-right">
-                                        <div class="per-page">
-                                            <p>Show : </p>
-                                            <select class="nice-select" name="sortby">
-                                                <option value="trending">10</option>
-                                                <option value="sales">20</option>
-                                                <option value="sales">30</option>
-                                                <option value="rating">40</option>
-                                                <option value="date">50</option>
-                                                <option value="price-asc">60</option>
-                                                <option value="price-asc">70</option>
-                                                <option value="price-asc">100</option>
-                                            </select>
-                                        </div>
-                                        <div class="product-short">
-                                            <p>Sort By : </p>
-                                            <select class="nice-select" name="sortby">
-                                                <option value="trending">Relevance</option>
-                                                <option value="sales">Name (A - Z)</option>
-                                                <option value="sales">Name (Z - A)</option>
-                                                <option value="rating">Price (Low &gt; High)</option>
-                                                <option value="date">Rating (Lowest)</option>
-                                                <option value="price-asc">Model (A - Z)</option>
-                                                <option value="price-asc">Model (Z - A)</option>
-                                            </select>
-                                        </div>
+                                    <div class="product-page">
+                                        <p>Showing 1 to 9 of 9 (1 Pages)</p>
                                     </div>
                                 </div>
                             </div>
 
+                            <div class="col-md-6">
+                                <div class="top-bar-right">
+                                    <div class="per-page">
+                                        <p>Show : </p>
+                                        <select class="nice-select" name="sortby">
+                                            <option value="trending">10</option>
+                                            <option value="sales">20</option>
+                                            <option value="sales">30</option>
+                                            <option value="rating">40</option>
+                                            <option value="date">50</option>
+                                            <option value="price-asc">60</option>
+                                            <option value="price-asc">70</option>
+                                            <option value="price-asc">100</option>
+                                        </select>
+                                    </div>
+                                    <div class="product-short">
+                                        <p>Sort By : </p>
+                                        <select class="nice-select" name="sortby">
+                                            <option value="trending">Relevance</option>
+                                            <option value="sales">Name (A - Z)</option>
+                                            <option value="sales">Name (Z - A)</option>
+                                            <option value="rating">Price (Low &gt; High)</option>
+                                            <option value="date">Rating (Lowest)</option>
+                                            <option value="price-asc">Model (A - Z)</option>
+                                            <option value="price-asc">Model (Z - A)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        {% comment %} Products List {% endcomment %}
-                        <div class="shop-product-wrap grid column_3 row">
-                            {% for product in products %}
+
+                    </div>
+                    {% comment %} Products List {% endcomment %}
+                    <div class="shop-product-wrap grid column_3 row">
+                        {% if filteredproducts %}
+                            {% for product in filteredproducts %}
                                 <div class="col-lg-3 col-md-4 col-sm-6">
                                     {% comment %} triple grid {% endcomment %}
                                     <div class="product-item mb-30">
                                         <div class="product-thumb">
-                                            <a href="{% url 'products:productDetails' pk=product.pk %}">
-                                                <img src="{{ product.image.url }}"
+                                            <a href="{% url 'products:productDetails' pk=product.productId %}">
+                                                <img src="{{ product.image }}"
                                                      class="pri-img img-responsive"
                                                      alt="">
                                             </a>
@@ -186,52 +199,46 @@
                                             </div>
                                             <div class="action-links">
                                                 <a href="#" title="Wishlist"><i class="lnr lnr-heart"></i></a>
-                                                <a href="#" title="Compare"><i class="lnr lnr-sync"></i></a>
-                                                <a href="#" title="Quick view" data-target="#quickk_view"
-                                                   data-toggle="modal"><i class="lnr lnr-magnifier"></i></a>
+                                                <!--                                                <a href="#" title="Compare"><i class="lnr lnr-sync"></i></a>-->
+                                                <!--                                                <a href="#" title="Quick view" data-target="#quickk_view" data-toggle="modal"><i class="lnr lnr-magnifier"></i></a>-->
                                             </div>
                                         </div>
                                         <div class="product-caption">
                                             <div class="manufacture-product">
-                                                <p><a href="shop-grid-left-sidebar.html">{{ product.brand }}</a></p>
+                                                <p><a href="{% url 'products:productDetails' pk=product.productId %}">{{ product.brand }}</a></p>
                                             </div>
                                             <div class="product-name">
-                                                <h4><a href="product-details.html">{{ product.name }}</a></h4>
+                                                <h4><a href="{% url 'products:productDetails' pk=product.productId %}">{{ product.name }}</a></h4>
                                             </div>
-                                            {% comment %}<div class="ratings">
-                                                {% if product.rating == 5 %}
-                                                    {% for j in 5 %}
-                                                        <span class="yellow"><i class="lnr lnr-star"></i></span>
-                                                    {% endfor %}
+                                            <div class="ratings">
+                                                {% if product.rating > 0 %}
+                                                    {{ product.rating }} * <span class="yellow"><i class="lnr lnr-star"></i></span>
                                                 {% elif product.rating == 0 %}
-                                                    {% for j in  %}
-                                                        <span><i class="lnr lnr-star"></i></span>
-                                                    {% endfor %}
-                                                {% elif product.rating > 0 and product.rating < 5%}
-                                                    {% for k in product.rating %}
-                                                        <span class="yellow"><i class="lnr lnr-star"></i></span>
-                                                    {% endfor %}
+                                                    <span><i class="lnr lnr-star"></i></span>
+                                                    <span><i class="lnr lnr-star"></i></span>
+                                                    <span><i class="lnr lnr-star"></i></span>
+                                                    <span><i class="lnr lnr-star"></i></span>
+                                                    <span><i class="lnr lnr-star"></i></span>
+        <!--                                        <span class="yellow"><i class="lnr lnr-star"></i></span>-->
+        <!--                                        <span class="yellow"><i class="lnr lnr-star"></i></span>-->
+        <!--                                        <span class="yellow"><i class="lnr lnr-star"></i></span>-->
+        <!--                                        <span class="yellow"><i class="lnr lnr-star"></i></span>-->
+        <!--                                        <span><i class="lnr lnr-star"></i></span>-->
                                                 {% endif %}
-
-                                                <span class="yellow"><i class="lnr lnr-star"></i></span>
-                                                <span class="yellow"><i class="lnr lnr-star"></i></span>
-                                                <span class="yellow"><i class="lnr lnr-star"></i></span>
-                                                <span class="yellow"><i class="lnr lnr-star"></i></span>
-                                                <span><i class="lnr lnr-star"></i></span>
-                                            </div>{% endcomment %}
+                                            </div>
                                             <div class="price-box">
                                                 <h4>New Price:</h4><span
-                                                    class="regular-price">&#2547; {{ product.new_price|floatformat:2 }}</span>{% comment %}|floatformat:2 => for 2 decimal place{% endcomment %}
+                                                    class="regular-price">&#2547; {{ product.new_price|floatformat:2 }}</span>
                                             </div>
                                             <div class="price-box">
                                                 <h4>Old Price: </h4><span class="regular-price middle"><s
-                                                    class="text-danger">&#2547; {{ product.old_price|floatformat:2 }}</s></span>
+                                                    class="text-danger"><!--&#2547;-->$ {{ product.old_price|floatformat:2 }}</s></span>
                                             </div>
                                             <a href="{% if user.is_authenticated %}
-                                                        {% url 'add_to_cart' pk=product.pk %}
-                                                    {% else %}
-                                                        {% url 'account:login' %}
-                                                {% endif %}">
+                                                                {% url 'add_to_cart' pk=product.productId %}
+                                                            {% else %}
+                                                                {% url 'account:login' %}
+                                                        {% endif %}">
                                                 <button class="btn-cart" type="button">add to cart</button>
                                             </a>
                                         </div>
@@ -272,8 +279,8 @@
                                         </div>
                                         <div class="sinrato-box-action">
                                             <div class="price-box">
-                                                <span class="regular-price"><span
-                                                        class="special-price">&#2547; {{ product.new_price }}</span></span>
+                                                        <span class="regular-price"><span
+                                                                class="special-price">&#2547; {{ product.new_price }}</span></span>
                                                 <span class="old-price"><del>&#2547; {{ product.old_price }}</del></span>
                                             </div>
                                             <button class="btn-cart" type="button">add to cart</button>
@@ -287,26 +294,140 @@
                                     </div> <!-- end single list item -->
                                 </div>
                             {% endfor %}
-                        </div>
-                        <div class="paginatoin-area style-2 pt-35 pb-20">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="pagination-area">
-                                        <p>Showing 1 to 9 of 9 (1 Pages)</p>
+                        {% else %}
+                            {% for product in products %}
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    {% comment %} triple grid {% endcomment %}
+                                    <div class="product-item mb-30">
+                                        <div class="product-thumb">
+                                            <a href="{% url 'products:productDetails' pk=product.productId %}">
+                                                <img src="{{ product.image }}"
+                                                     class="pri-img img-responsive"
+                                                     alt="">
+                                            </a>
+                                            <div class="box-label">
+                                                <div class="label-product label_new">
+                                                    <span>new</span>
+                                                </div>
+                                            </div>
+                                            <div class="action-links">
+                                                <a href="#" title="Wishlist"><i class="lnr lnr-heart"></i></a>
+                                                <!--                                                <a href="#" title="Compare"><i class="lnr lnr-sync"></i></a>-->
+                                                <!--                                                <a href="#" title="Quick view" data-target="#quickk_view" data-toggle="modal"><i class="lnr lnr-magnifier"></i></a>-->
+                                            </div>
+                                        </div>
+                                        <div class="product-caption">
+                                            <div class="manufacture-product">
+                                                <p><a href="{% url 'products:productDetails' pk=product.productId %}">{{ product.brand }}</a></p>
+                                            </div>
+                                            <div class="product-name">
+                                                <h4><a href="{% url 'products:productDetails' pk=product.productId %}">{{ product.name }}</a></h4>
+                                            </div>
+                                            <div class="ratings">
+                                                {% if product.rating > 0 %}
+                                                    {{ product.rating }} * <span class="yellow"><i class="lnr lnr-star"></i></span>
+                                                {% elif product.rating == 0 %}
+                                                    <span><i class="lnr lnr-star"></i></span>
+                                                    <span><i class="lnr lnr-star"></i></span>
+                                                    <span><i class="lnr lnr-star"></i></span>
+                                                    <span><i class="lnr lnr-star"></i></span>
+                                                    <span><i class="lnr lnr-star"></i></span>
+        <!--                                        <span class="yellow"><i class="lnr lnr-star"></i></span>-->
+        <!--                                        <span class="yellow"><i class="lnr lnr-star"></i></span>-->
+        <!--                                        <span class="yellow"><i class="lnr lnr-star"></i></span>-->
+        <!--                                        <span class="yellow"><i class="lnr lnr-star"></i></span>-->
+        <!--                                        <span><i class="lnr lnr-star"></i></span>-->
+                                                {% endif %}
+                                            </div>
+                                            <div class="price-box">
+                                                <h4>New Price:</h4><span
+                                                    class="regular-price">&#2547; {{ product.new_price|floatformat:2 }}</span>
+                                            </div>
+                                            <div class="price-box">
+                                                <h4>Old Price: </h4><span class="regular-price middle"><s
+                                                    class="text-danger"><!--&#2547;-->$ {{ product.old_price|floatformat:2 }}</s></span>
+                                            </div>
+                                            <a href="{% if user.is_authenticated %}
+                                                                {% url 'add_to_cart' pk=product.productId %}
+                                                            {% else %}
+                                                                {% url 'account:login' %}
+                                                        {% endif %}">
+                                                <button class="btn-cart" type="button">add to cart</button>
+                                            </a>
+                                        </div>
                                     </div>
+                                    <!-- end Triple grid item -->
+
+                                    {% comment %} start of single grid {% endcomment %}
+                                    <div class="sinrato-list-item mb-30">
+                                        <div class="sinrato-thumb">
+                                            <a href="product-details.html">
+                                                <img src="{{ product.image.url|default_if_none:'#' }}" class="pri-img"
+                                                     alt="">
+                                            </a>
+                                            <div class="box-label">
+                                                <div class="label-product label_sale">
+                                                    <span>-{{ product.discount }}%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="sinrato-list-item-content">
+                                            <div class="manufacture-product">
+                                                <span><a href="#">{{ product.brand }}</a></span>
+                                            </div>
+                                            <div class="sinrato-product-name">
+                                                <h4><a href="product-details.html">{{ product.name }}</a>
+                                                </h4>
+                                            </div>
+                                            <div class="sinrato-ratings mb-15">
+                                                <span><i class="fa fa-star"></i></span>
+                                                <span><i class="fa fa-star"></i></span>
+                                                <span><i class="fa fa-star"></i></span>
+                                                <span><i class="fa fa-star"></i></span>
+                                                <span><i class="fa fa-star"></i></span>
+                                            </div>
+                                            <div class="sinrato-product-des">
+                                                <p>{{ product.description }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="sinrato-box-action">
+                                            <div class="price-box">
+                                                        <span class="regular-price"><span
+                                                                class="special-price">&#2547; {{ product.new_price }}</span></span>
+                                                <span class="old-price"><del>&#2547; {{ product.old_price }}</del></span>
+                                            </div>
+                                            <button class="btn-cart" type="button">add to cart</button>
+                                            <div class="action-links sinrat-list-icon">
+                                                <a href="#" title="Wishlist"><i class="lnr lnr-heart"></i></a>
+                                                <a href="#" title="Compare"><i class="lnr lnr-sync"></i></a>
+                                                <a href="#" title="Quick view" data-target="#quickk_view"
+                                                   data-toggle="modal"><i class="lnr lnr-magnifier"></i></a>
+                                            </div>
+                                        </div>
+                                    </div> <!-- end single list item -->
                                 </div>
-                                <div class="col-sm-6">
-                                    <ul class="pagination-box pagination-style-2">
-                                        <li><a class="Previous" href="#">Previous</a>
-                                        </li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li>
-                                            <a class="Next" href="#"> Next </a>
-                                        </li>
-                                    </ul>
+                            {% endfor %}
+                        {% endif %}
+
+                    </div>
+                    <div class="paginatoin-area style-2 pt-35 pb-20">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="pagination-area">
+                                    <p>Showing 1 to 9 of 9 (1 Pages)</p>
                                 </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="pagination-box pagination-style-2">
+                                    <li><a class="Previous" href="#">Previous</a>
+                                    </li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li>
+                                        <a class="Next" href="#"> Next </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -314,9 +435,10 @@
             </div>
         </div>
     </div>
-    <!-- shop page main wrapper end -->
+</div>
+<!-- shop page main wrapper end -->
 
 
-    {% include 'includes/footer.html' %}
+{% include 'includes/footer.html' %}
 {% endblock %}
 

@@ -91,7 +91,7 @@ def logout_user(request):
 @login_required
 def user_profile(request, pk):
     profile = Profile.objects.get(id=pk)
-    order_items = Order.objects.filter(user=request.user).exclude(order_id=None, payment_id=None)
+    order_items = Order.objects.filter(created_by=request.user).exclude(order_id=None, payment_id=None)
     # a = Order.objects.filter(user=request.user, is_order=True)
     # items = a.order_items
     # for order in order_items:

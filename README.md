@@ -7,3 +7,5 @@ open terminal: cmd - pip install -r requirements.txt (to install all the depende
 cmd-2: python manage.py makemigrations
 cmd-3: python manage.py migrate
 cmd-4: python manage.py runserver
+
+****** sql gcp root password - s1234 

@@ -13,7 +13,25 @@
                <div class="col-lg-12">
                    <div class="blog-wrapper-inner">
                        <div class="row">
-                            <div class="col-sm-6 col-lg-4">
+                           {% if articles %}
+                                {% for article in articles %}
+                                    <div class="col-sm-6 col-lg-4">
+                                    <div class="single-blogg-item mb-30">
+                                        <div class="blogg-thumb">
+                                            <a href="{% url 'blog:blogs_details' %}">
+                                                <img src="{{ article.article_photo }}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="blogg-content">
+                                            <span class="post-date">{{ article.authur }}</span>
+                                            <h5><a href="{% url 'blog:blogs_details' %}">{{ article.a_title }}</a></h5>
+                                            <p>{{ article.article_content|slice:":100" }}...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                           {% endif %}
+<!--                            <div class="col-sm-6 col-lg-4">
                                 <div class="single-blogg-item mb-30">
                                     <div class="blogg-thumb">
                                         <a href="{% url 'blog:blogs_details' %}">
@@ -30,13 +48,13 @@
                             <div class="col-sm-6 col-lg-4">
                                 <div class="single-blogg-item mb-30">
                                     <div class="blogg-thumb">
-                                        <a href="../rough-templates/blog-details.html">
+                                        <a href="../blog/blog-details.html">
                                             <img src="{%static '/img/blog/blog2.jpg' %}" alt="">
                                         </a>
                                     </div>
                                     <div class="blogg-content">
                                         <span class="post-date">20 oct 2019</span>
-                                        <h5><a href="../rough-templates/blog-details.html">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
+                                        <h5><a href="../rough-blog/blog-details.html">London Fashion Week 360° Candy Rock & Royal Fashion Day</a></h5>
                                         <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
                                     </div>
                                 </div>
@@ -180,10 +198,10 @@
                                         <p>Maria Denardo is the Fashion Director at theFashionSpot. Prior to joining tFS, she worked as...</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                        </div>
                    </div>
-                   <div class="paginatoin-area text-center pt-40">
+                   <!--<div class="paginatoin-area text-center pt-40">
                         <div class="row">
                             <div class="col-12">
                                 <ul class="pagination-box">
@@ -198,7 +216,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                </div>
            </div>
        </div>

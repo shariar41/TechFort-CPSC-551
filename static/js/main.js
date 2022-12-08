@@ -10,7 +10,15 @@
             $(".sticker").addClass("sticky");
         }
     });
-
+    $('li.active').removeClass('active').removeAttr('aria-current');
+    $('a[href="' + location.pathname + '"]').closest('li').addClass('active').attr('aria-current', 'page');
+    /*$("#navLogoButton").click(function() {
+      if ($("#myTopnavtopnav").hasClass("topnav")) {
+        $("#myTopnav").addClass("responsive");
+      } else {
+        $("#myTopnav").addClass("topnav");
+      }
+    });*/
     $('#mobile-menu').each(function () {
         var $this = $(this);
         var $screenWidth = $this.attr('data-screen') ? parseInt($this.attr('data-screen'), 10) : 991;
@@ -22,7 +30,6 @@
     });
 
     // Categories Item Show Hide
-
     $(".category-item-parent.hidden").hide();
     $(".more-btn").on('click', function (e) {
         e.preventDefault();
