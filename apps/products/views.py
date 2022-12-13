@@ -63,11 +63,11 @@ def product_details(request, pk):
 def shop(request):
     products = Product.objects.all()
     categories = Category.objects.all()
-    p = Product.objects.filter(posted_user=request.user).select_related()
+    # p = Product.objects.filter(posted_user=request.user).select_related()
     # cont_rating_tmp = Order.objects.filter(
     #     created_by=request.user
     # ).aggregate(sum=sum('avg_rate'))
-    print(p)
+    # print(p)
 
     if products and categories:
         # print(product_images[0].cover_image)
